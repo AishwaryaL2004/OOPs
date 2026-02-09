@@ -1,32 +1,29 @@
-class Book:
-    def __init__(self, title, author):
-        self.title = title
-        self.author = author
+# Multiple Inheritance
+# Smartphone system
+class Camera:
+    def __init__(self, camera_quality):
+        self.camera_quality = camera_quality
 
-    def display_book_details(self):
-        print("Title:", self.title)
-        print("Author:", self.author)
+    def display_camera_details(self):
+        print("Camera Quality:", self.camera_quality)
 
-class IssuedBook(Book):
-    def __init__(self, title, author, issued_to, issued_date):
-        super().__init__(title, author)
-        self.issued_to = issued_to
-        self.issued_date = issued_date
+class MusicPlayer:
+    def __init__(self, sound_quality):
+        self.sound_quality = sound_quality
 
-    def display_book_details(self):
-        print("Title:", self.title)
-        print("Author:", self.author)
+    def display_music_details(self):
+        print("Sound Quality:", self.sound_quality)
 
-    def display_issued_book_details(self):
-        self.display_book_details()
-        print("Issued To:", self.issued_to)
-        print("Issued Date:", self.issued_date)
+class SmartPhone(Camera, MusicPlayer):
+    def __init__(self, brand, camera_quality, sound_quality):
+        self.brand = brand
+        Camera.__init__(self, camera_quality)
+        MusicPlayer.__init__(self, sound_quality)
 
-issued_book = IssuedBook(
-    "Python",
-    "Chandra",
-    "Aishwarya",
-    "03-02-2026"
-)
-
-issued_book.display_issued_book_details()
+    def display_smartphone_details(self):
+        print("Brand:", self.brand)
+        self.display_camera_details()
+        self.display_music_details()
+        
+phone = SmartPhone("Vivo", "250 MP", "good")
+phone.display_smartphone_details()

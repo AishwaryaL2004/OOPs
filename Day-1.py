@@ -1,8 +1,12 @@
 class Instagram:
-    def __init__(self,title, description):  
+    def __init__(self,title, description,creator_name,location):  
         self.title = title
         self.description = description
         self.likes = 0
+        self.creator_name = creator_name
+        self.location = location
+        self.comments=[]
+        
     def display_title(self):
         print("The title of the reel is ",self.title)
     def display_description(self):
@@ -14,21 +18,41 @@ class Instagram:
     def disliked(self):
         if self.likes > 0:
             self.likes-=1
+    def display_creator_name(self):
+        print("The creator of the reel is ",self.creator_name)
+    def display_location(self):
+        print("The location of the reel is ",self.location)
+    def display_likes(self):
+        print("The likes of the reel is ",self.likes)
+    def display_comments(self):
+        if len(self.comments) == 0:
+            print("No comments yet")
+        else:
+            print("The comments are")
+            for comment in self.comments:
+                print("-",comment)
+    def add_comments(self,comment):
+        self.comments.append(comment)
+    def delete_last_comment(self):
+        #self.remove("comment1")
+        temp_comment=self.comments.pop()
+        print("The last comment is deleted ",temp_comment)
 
 
-reel1=Instagram("dancing","dancing with friends")
-# 0
-reel1.disliked() #0
-reel1.liked() #1
+reel1=Instagram("dancing","dancing with friends", "John","New York")
+#reel1.display_title()
+#reel1.display_description()
+#reel1.display_creator_name()
+#reel1.display_location()
+reel1.display_comments()
+reel1.add_comments("comment1")
+reel1.delete_last_comment()
+reel1.display_comments()
 
-reel2=Instagram("finance minister conference","finance minister conference with friends")
-reel1.liked() #2
-# 0
-reel2.liked() #1
-reel1.disliked() #1
-reel1.display_likes()
-reel2.display_likes()
+#reel2=Instagram("finance minister conference","finance minister conference with friend","Bob","usa")
+#reel2.display_title()
+#reel2.display_description()
+#reel2.display_creator_name()
+#reel2.display_location()
+#reel2.display_comments()
 
-
-print(id(reel1))
-print(id(reel2))

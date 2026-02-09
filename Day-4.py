@@ -1,29 +1,57 @@
-# Multiple Inheritance
-# Smartphone system
-class Camera:
-    def __init__(self, camera_quality):
-        self.camera_quality = camera_quality
+# Bank System
+# Hierarchical Inheritance
 
-    def display_camera_details(self):
-        print("Camera Quality:", self.camera_quality)
+class BankAccount:
+    def __init__(self, account_holder, balance):
+        self.account_holder = account_holder
+        self.balance = balance
 
-class MusicPlayer:
-    def __init__(self, sound_quality):
-        self.sound_quality = sound_quality
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"Deposited ₹{amount}")
 
-    def display_music_details(self):
-        print("Sound Quality:", self.sound_quality)
+    def withdraw(self, amount):
+        if amount <= self.balance:
+            self.balance -= amount
+            print(f"Withdrawn ₹{amount}")
+        else:
+            print("Insufficient balance")
 
-class SmartPhone(Camera, MusicPlayer):
-    def __init__(self, brand, camera_quality, sound_quality):
-        self.brand = brand
-        Camera.__init__(self, camera_quality)
-        MusicPlayer.__init__(self, sound_quality)
+    def display_balance(self):
+        print(f"Account Holder: {self.account_holder}")
+        print(f"Current Balance: ₹{self.balance}")
 
-    def display_smartphone_details(self):
-        print("Brand:", self.brand)
-        self.display_camera_details()
-        self.display_music_details()
-        
-phone = SmartPhone("Vivo", "250 MP", "good")
-phone.display_smartphone_details()
+class SavingsAccount(BankAccount):
+    def __init__(self, account_holder, balance, interest_rate):
+        super().__init__(account_holder, balance)
+        self.interest_rate = interest_rate
+
+    def add_interest(self):
+        interest = self.balance * self.interest_rate / 100
+        self.balance += interest
+        print(f"Interest added: ₹{interest}")
+
+class CurrentAccount(BankAccount):
+    def __init__(self, account_holder, balance, overdraft_limit):
+        super().__init__(account_holder, balance)
+        self.overdraft_limit = overdraft_limit
+
+    def withdraw_with_overdraft(self, amount):
+        if amount <= self.balance + self.overdraft_limit:
+            self.balance -= amount
+            print(f"Withdrawn ₹{amount} with overdraft")
+        else:
+            print("Overdraft limit exceeded")
+
+print("---- Savings Account ----")
+savings = SavingsAccount("Aishwarya", 10000, 5)
+savings.deposit(2000)
+savings.withdraw(3000)
+savings.add_interest()
+savings.display_balance()
+
+print("\n---- Current Account ----")
+current = CurrentAccount("Rahul", 5000, 3000)
+current.deposit(1000)
+current.withdraw_with_overdraft(7000)
+current.display_balance()

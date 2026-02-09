@@ -1,35 +1,41 @@
-# Multi-level Inheritance
-# Online shopping system
-class Product:
-    def __init__(self, product_name, price):
-        self.product_name = product_name
-        self.price = price
+# College Management System
+# Hybrid Inheritance
 
-    def display_product(self):
-        print("Product Name:", self.product_name)
-        print("Price:", self.price)
+class Person:
+    def __init__(self, name):
+        self.name = name
 
-class ElectronicProduct(Product):
-    def __init__(self, product_name, price, brand, warranty):
-        super().__init__(product_name, price)
-        self.brand = brand
-        self.warranty = warranty
+    def display_person(self):
+        print("Name:", self.name)
 
-    def display_electronic_product(self):
-        self.display_product()
-        print("Brand:", self.brand)
-        print("Warranty:", self.warranty)
+class Student(Person):
+    def __init__(self, name, student_id):
+        Person.__init__(self, name)
+        self.student_id = student_id
 
-class MobilePhone(ElectronicProduct):
-    def __init__(self, product_name, price, brand, warranty, ram, storage):
-        super().__init__(product_name, price, brand, warranty)
-        self.ram = ram
-        self.storage = storage
+    def display_student(self):
+        print("Student ID:", self.student_id)
 
-    def display_mobile_details(self):
-        self.display_electronic_product()
-        print("RAM:", self.ram)
-        print("Storage:", self.storage)
+class SportsPlayer(Person):
+    def __init__(self, name, sport_name):
+        Person.__init__(self, name)
+        self.sport_name = sport_name
 
-mobile = MobilePhone("Phone",15000,"Vivo","1 Year","8 GB","256 GB")
-mobile.display_mobile_details()
+    def display_sports_player(self):
+        print("Sport Name:", self.sport_name)
+
+class CollegeStudent(Student, SportsPlayer):
+    def __init__(self, name, student_id, sport_name, college_name):
+        Student.__init__(self, name, student_id)
+        SportsPlayer.__init__(self, name, sport_name)
+        self.college_name = college_name
+
+    def display_college_student(self):
+        print("College Name:", self.college_name)
+
+student = CollegeStudent("Aishwarya","CS101","Badminton","ABC Engineering College")
+print("---- College Student Details ----")
+student.display_person()
+student.display_student()
+student.display_sports_player()
+student.display_college_student()
