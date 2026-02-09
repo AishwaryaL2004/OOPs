@@ -1,0 +1,14 @@
+# Decorator
+# Permission Checker
+
+def admin_only(func):
+    def wrapper(username):
+        if username == "admin":
+            return func(username)
+        else:
+            print("Access Denied")
+    return wrapper
+
+@admin_only
+def dashboard(username):
+    print("Welcome to Admin Dashboard")
